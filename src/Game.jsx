@@ -102,8 +102,12 @@ const ghostData = [
 const Game = () => {
   const [ghost, setGhost] = useState(null)
   const [score, setScore] = useState(0)
+  const [cheats, setCheats] = useState(false)
   useEffect(() => {
     setGhost(ghostData[Math.floor(Math.random() * ghostData.length)])
+    if (localStorage.getItem('cheats') === 'true') {
+      setCheats(true)
+    }
   }, [])
   function guess(type) {
     if (type === ghost.type) {
@@ -126,7 +130,7 @@ const Game = () => {
         </ul>
       </div>
       <br />
-      <h2>The Ghost is a:</h2>
+      <h2>The Ghost is a: {cheats && (JSON.stringify(ghost.type).replace(/['"]+/g, ''))}</h2>
       <div className='types'>
         <ul>
           {ghost && ghostData.map((g, index) => {
