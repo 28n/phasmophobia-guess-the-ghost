@@ -39,3 +39,29 @@
 .read-the-docs {
   color: #888;
 }
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style: none;
+  gap: 1em;
+  flex-wrap: wrap;
+
+}
+
+div.evidence {
+  color: lightblue;
+  font-size: 1.5em;
+}
+
+div.types {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+div.footer {
+  margin-top: 2em;
+  font-size: 0.8em;
+}
