@@ -65,3 +65,12 @@ div.footer {
   margin-top: 2em;
   font-size: 0.8em;
 }
+
+ul.ul-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style: none;
+  gap: 1em;
+  flex-wrap: wrap;
+}

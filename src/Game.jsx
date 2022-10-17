@@ -102,6 +102,8 @@ const ghostData = [
 const Game = () => {
   const [ghost, setGhost] = useState(null)
   const [score, setScore] = useState(0)
+  const [wrongAttempts, setWrongAttempts] = useState(0)
+  const [practiceMode, setPracticeMode] = useState(false)
   const [cheats, setCheats] = useState(false)
   useEffect(() => {
     setGhost(ghostData[Math.floor(Math.random() * ghostData.length)])
@@ -110,17 +112,24 @@ const Game = () => {
     }
   }, [])
   function guess(type) {
+    if (practiceMode) {
+      alert('You are in practice mode. You cannot guess.')
+      return
+    }
+
     if (type === ghost.type) {
-      setScore(score + 1)
+      setScore((old) => old + 1)
       setGhost(ghostData[Math.floor(Math.random() * ghostData.length)])
     } else {
       alert("Wrong!")
+      setWrongAttempts((old) => old + 1)
     }
   }
   return (
     <div className="game">
       <h1>Guess the Ghost Type</h1>
       <h2>Score: {score}</h2>
+      <h2>Wrong Attempts: {wrongAttempts}</h2>
       <br />
       <div className='evidence'>
         <ul>
@@ -139,6 +148,32 @@ const Game = () => {
             )
           })}
         </ul>
+      </div>
+      <br />
+      <div>
+        <h2>Practisemode is currently: {practiceMode ? ('on') : ('off')}</h2>
+        <button onClick={() => { setPracticeMode(old => !old) }}>Toggle Practice Mode</button>
+        <br />
+        <div>
+          {practiceMode && (
+            <ul className='ul-col'>
+              {ghostData.map((g, index) => {
+                return (
+                  <li key={index}>
+                    <h3>{g.type}</h3>
+                    <ul>
+                      {g.evidence.map((e, index) => {
+                        return (
+                          <li key={index}>{e}</li>
+                        )
+                      })}
+                    </ul>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+        </div>
       </div>
       <div className='footer'>
         <p>Created by <a href="https://www.samsierra.de">Sam Sierra</a></p>
